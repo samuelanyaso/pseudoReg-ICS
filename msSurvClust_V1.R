@@ -307,7 +307,7 @@ msSurvClust <- function(Data, tree, LT = FALSE, weight=TRUE){
     Cdat <- subset(Data, cID == m)
     
     # estimates the CP and at-risk quantities
-    if (LT) { # investigate if the next line should be outside the m loop
+    if (LT) {
       Cdat <- LT.Data(Cdat) # transforms data to accommodate LT
       cp <- CP(tree=tree, tree0=Cens$treeLT, Data=Cdat, nt.states=Cens$nt.states.LT, 
                nt.states2=FM$nt.states2, dNs=FM$dNs, Ys=FM$Ys, sum_dNs=FM$sum_dNs)
@@ -317,7 +317,6 @@ msSurvClust <- function(Data, tree, LT = FALSE, weight=TRUE){
     }
     
     # Update CP & at-risk quantities via (IPCW) Datta-Satten 2001 estimators 
-    # actually, both conditions in the if statement below should give equivalent results
     if(LT){
       ds.est <- DS.ind(nt.states=Cens$nt.states.LT, dNs=cp$dNs, sum_dNs=cp$sum_dNs, Ys=cp$Ys)
     } else {
